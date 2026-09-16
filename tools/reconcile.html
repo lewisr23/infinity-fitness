@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Membership check &middot; Infinity Fitness</title>
+<style>
+  :root{
+    --ground:#f3f2ef; --surface:#ffffff; --surface-2:#f7f6f3;
+    --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#a1a1a6;
+    --hairline:rgba(29,29,31,0.10); --hairline-strong:rgba(29,29,31,0.18);
+    --accent:#d94f1e; --accent-text:#b8411a; --accent-tint:rgba(217,79,30,0.10); --on-accent:#fff8f3;
+    --ok:#1c7a3e; --ok-tint:rgba(28,122,62,0.10);
+    --warn:#9a6212; --warn-tint:rgba(199,133,32,0.14);
+    --info:#3a5a9a; --info-tint:rgba(58,90,154,0.10);
+    --shadow-rest:0 1px 2px rgba(0,0,0,0.05), 0 1px 1px rgba(0,0,0,0.03);
+    --r-s:8px; --r-m:12px; --r-l:16px;
+    --font-sans:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#161618; --surface:#1f1f22; --surface-2:#26262a;
+      --ink:#f5f5f7; --ink-2:#a1a1a6; --ink-3:#6e6e73;
+      --hairline:rgba(255,255,255,0.10); --hairline-strong:rgba(255,255,255,0.18);
+      --accent:#ff7a45; --accent-text:#ff9a6e; --accent-tint:rgba(255,122,69,0.14);
+      --ok:#42d074; --ok-tint:rgba(66,208,116,0.14);
+      --warn:#e8b34a; --warn-tint:rgba(232,179,74,0.14);
+      --info:#8fb0f0; --info-tint:rgba(143,176,240,0.14);
+      --shadow-rest:0 1px 2px rgba(0,0,0,0.4);
+    }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--font-sans); font-size:15px; line-height:1.55; letter-spacing:-0.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:1060px; margin:0 auto; padding:0 24px; }
+  h1{ margin:0; font-size:26px; font-weight:600; letter-spacing:-0.03em; }
+  h2{ margin:0; font-size:17px; font-weight:600; letter-spacing:-0.02em; }
+  p{ margin:0; }
+  header{ padding:36px 0 22px; border-bottom:1px solid var(--hairline); }
+  .sub{ margin-top:6px; font-size:14px; color:var(--ink-2); }
+  .privacy{
+    display:flex; gap:10px; margin-top:18px; padding:12px 14px; border-radius:var(--r-m);
+    background:var(--ok-tint); font-size:13.5px; line-height:1.5;
+  }
+  .privacy svg{ flex-shrink:0; margin-top:3px; color:var(--ok); }
+  main{ padding:26px 0 80px; }
+  .panel{
+    margin-top:16px; background:var(--surface); border-radius:var(--r-l);
+    box-shadow:var(--shadow-rest), 0 0 0 1px var(--hairline); overflow:hidden;
+  }
+  .panel-bar{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding:13px 18px; border-bottom:1px solid var(--hairline); background:var(--surface-2);
+  }
+  .panel-body{ padding:18px; }
+  .step-num{
+    display:inline-flex; align-items:center; justify-content:center; width:21px; height:21px; margin-right:9px;
+    border-radius:50%; background:var(--accent-tint); color:var(--accent-text);
+    font-family:var(--font-mono); font-size:11px; font-weight:600;
+  }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:7px;
+    height:36px; padding:0 15px; border-radius:9px; border:0;
+    font:inherit; font-size:14px; font-weight:500; cursor:pointer; white-space:nowrap;
+    color:var(--ink); background:var(--surface);
+    box-shadow:var(--shadow-rest), 0 0 0 1px var(--hairline);
+  }
+  .btn:hover{ box-shadow:var(--shadow-rest), 0 0 0 1px var(--hairline-strong); }
+  .btn:active{ transform:scale(.97); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ color:var(--on-accent); background:var(--accent); box-shadow:none; }
+  .btn-primary:hover{ filter:brightness(1.06); box-shadow:none; }
+  .btn.small{ height:30px; padding:0 11px; font-size:13px; }
+  a{ color:var(--accent-text); }
+
+  .drop{
+    display:block; padding:22px; border-radius:var(--r-m); cursor:pointer; text-align:center;
+    border:1.5px dashed var(--hairline-strong); background:var(--surface-2);
+    transition:border-color .15s, background .15s;
+  }
+  .drop:hover, .drop.over{ border-color:var(--accent); background:var(--accent-tint); }
+  .drop input{ display:none; }
+  .drop .big{ font-size:14.5px; font-weight:500; }
+  .drop .hint{ margin-top:3px; font-size:13px; color:var(--ink-2); }
+  .drop.loaded{ border-style:solid; border-color:var(--ok); background:var(--ok-tint); }
+  .file-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .file-row > *{ flex:1 1 300px; }
+
+  .tabs{ display:inline-flex; gap:2px; padding:3px; margin-bottom:12px; border-radius:999px;
+    background:var(--surface-2); box-shadow:inset 0 0 0 1px var(--hairline); }
+  .tabs button{
+    padding:5px 13px; border:0; border-radius:999px; background:transparent; cursor:pointer;
+    font:inherit; font-size:13px; font-weight:500; color:var(--ink-2);
+  }
+  .tabs button[aria-selected="true"]{
+    background:var(--surface); color:var(--ink);
+    box-shadow:var(--shadow-rest), 0 0 0 1px var(--hairline);
+  }
+  textarea{
+    width:100%; min-height:150px; padding:11px 12px; resize:vertical;
+    font-family:var(--font-mono); font-size:12.5px; line-height:1.5; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--hairline); border-radius:var(--r-s);
+  }
+  textarea:focus{ outline:none; border-color:var(--accent); }
+  .paste-foot{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+  .preview{ margin-top:12px; }
+  .preview-head{ font-size:13px; margin-bottom:8px; }
+  .preview table{ font-size:13px; }
+  .preview td{ padding:7px 11px; }
+
+  @media (max-width:620px){
+    #results .tbl-scroll{ box-shadow:none; border-radius:0; overflow:visible; }
+    #results table, #results tbody, #results tr, #results td{ display:block; width:100%; }
+    #results thead{ display:none; }
+    #results table{ background:transparent; }
+    #results tr{
+      margin-bottom:10px; padding:12px 14px; border-radius:var(--r-m);
+      background:var(--surface); box-shadow:0 0 0 1px var(--hairline);
+    }
+    #results td{
+      display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+      padding:3px 0; border:0; white-space:normal; text-align:right;
+    }
+    #results td:before{
+      content:attr(data-label); flex:0 0 auto; font-size:12px; color:var(--ink-2); text-align:left;
+    }
+    #results td:empty{ display:none; }
+    #results td.chip-cell{ justify-content:flex-start; margin-bottom:4px; }
+    #results td.chip-cell:before{ content:none; }
+    .btn.small{ height:34px; }
+    .tabs{ display:flex; width:100%; }
+    .tabs button{ flex:1; text-align:center; padding:7px 8px; }
+  }
+
+  .map-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; }
+  label.fld{ display:block; font-size:12.5px; color:var(--ink-2); }
+  select, input[type=text]{
+    width:100%; margin-top:5px; height:34px; padding:0 9px; font:inherit; font-size:14px;
+    color:var(--ink); background:var(--surface-2);
+    border:1px solid var(--hairline); border-radius:var(--r-s);
+  }
+  select:focus, input:focus{ outline:none; border-color:var(--accent); }
+
+  .buckets{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:18px; }
+  .bucket{
+    padding:14px 16px; border-radius:var(--r-m); background:var(--surface-2);
+    box-shadow:0 0 0 1px var(--hairline); cursor:pointer; text-align:left; border:0; font:inherit; color:inherit;
+  }
+  .bucket:hover{ box-shadow:0 0 0 1px var(--hairline-strong); }
+  .bucket[aria-pressed="true"]{ box-shadow:0 0 0 2px var(--accent); background:var(--surface); }
+  .bucket .n{ font-size:28px; font-weight:700; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; line-height:1.1; }
+  .bucket .l{ margin-top:2px; font-size:13px; color:var(--ink-2); }
+  .bucket .money{ margin-top:4px; font-size:12px; font-family:var(--font-mono); color:var(--ink-3); }
+  .bucket.paid .n{ color:var(--ok); }
+  .bucket.missing .n{ color:var(--accent-text); }
+  .bucket.wrong .n{ color:var(--warn); }
+  .bucket.orphan .n{ color:var(--info); }
+
+  .tbl-scroll{ overflow-x:auto; border-radius:var(--r-m); box-shadow:0 0 0 1px var(--hairline); }
+  table{ width:100%; border-collapse:collapse; font-size:14px; background:var(--surface); }
+  th, td{ padding:10px 13px; text-align:left; border-top:1px solid var(--hairline); white-space:nowrap; }
+  th{ font-size:12px; font-weight:600; color:var(--ink-2); background:var(--surface-2); border-top:0; }
+  td.mono, th.mono{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+  td.wide{ white-space:normal; min-width:220px; }
+  .chip{
+    display:inline-block; padding:2px 8px; border-radius:999px;
+    font-size:11.5px; font-weight:600; letter-spacing:.02em;
+  }
+  .chip.paid{ background:var(--ok-tint); color:var(--ok); }
+  .chip.missing{ background:var(--accent-tint); color:var(--accent-text); }
+  .chip.wrong{ background:var(--warn-tint); color:var(--warn); }
+  .chip.orphan{ background:var(--info-tint); color:var(--info); }
+  .muted{ color:var(--ink-2); }
+  .empty{ padding:30px 18px; text-align:center; font-size:14px; color:var(--ink-2); }
+  .err{
+    margin-top:12px; padding:11px 14px; border-radius:var(--r-m);
+    background:var(--accent-tint); color:var(--accent-text); font-size:13.5px;
+  }
+  .toolbar{ display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap; }
+  .note{ margin-top:12px; font-size:12.5px; line-height:1.5; color:var(--ink-3); }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Membership check</h1>
+    <p class="sub">Match your bank statement against your member list, and see who has not paid this month.</p>
+    <div class="privacy">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
+      <span><strong>Nothing leaves this computer.</strong> Your files are read inside this page and never uploaded - there is no server, no account and no database. Close the tab and everything is gone. Once this page has opened you can turn your internet off completely and it will still work.</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="panel">
+    <div class="panel-bar"><h2><span class="step-num">1</span>Load your two files</h2>
+      <button type="button" class="btn small" id="tpl">Download a blank member list</button>
+    </div>
+    <div class="panel-body">
+      <div class="file-row">
+        <label class="drop" id="drop-members">
+          <input type="file" id="file-members" accept=".csv,.txt,text/csv">
+          <div class="big" id="lbl-members">Member list</div>
+          <div class="hint" id="hint-members">Click or drop a CSV &middot; name, plan, amount</div>
+        </label>
+        <div>
+          <div class="tabs" role="tablist">
+            <button type="button" id="tab-csv" role="tab" aria-selected="true">CSV file</button>
+            <button type="button" id="tab-pdf" role="tab" aria-selected="false">PDF file</button>
+            <button type="button" id="tab-paste" role="tab" aria-selected="false">Paste text</button>
+          </div>
+          <label class="drop" id="drop-bank">
+            <input type="file" id="file-bank" accept=".csv,.txt,text/csv">
+            <div class="big" id="lbl-bank">Bank statement</div>
+            <div class="hint" id="hint-bank">Click or drop your CSV export</div>
+          </label>
+          <label class="drop" id="drop-pdf" hidden>
+            <input type="file" id="file-pdf" accept="application/pdf,.pdf">
+            <div class="big" id="lbl-pdf">Statement PDF</div>
+            <div class="hint" id="hint-pdf">Choose the PDF you saved from the banking app</div>
+          </label>
+          <div id="paste-pane" hidden>
+            <textarea id="paste-box" spellcheck="false" placeholder="Open your PDF statement, select the transaction rows, copy, and paste them here.&#10;&#10;03 Sep 26  INF-PEAK-SMITH-5020        25.00   1,275.00&#10;03 Sep 26  JO BROWN STANDING ORDER    20.00   1,295.00"></textarea>
+            <div class="paste-foot">
+              <button type="button" class="btn small" id="paste-read">Read transactions</button>
+              <label class="fld" style="margin:0">Money in
+                <select id="paste-dir" style="margin-top:2px;height:30px">
+                  <option value="auto">Work it out from the balance</option>
+                  <option value="all">Every row is money in</option>
+                </select>
+              </label>
+            </div>
+            <div class="preview" id="paste-preview"></div>
+          </div>
+        </div>
+      </div>
+      <div id="load-err"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="map-panel" hidden>
+    <div class="panel-bar"><h2><span class="step-num">2</span>Check the columns</h2>
+      <span class="muted" style="font-size:13px">Set automatically - change any that look wrong</span>
+    </div>
+    <div class="panel-body">
+      <p class="muted" style="font-size:13px;margin-bottom:6px">Member list</p>
+      <div class="map-grid" id="map-members"></div>
+      <p class="muted" style="font-size:13px;margin:18px 0 6px">Bank statement</p>
+      <div class="map-grid" id="map-bank"></div>
+      <p class="note">Dates are read UK-style, day first - 01/02/2026 means 1 February. Only money paid <em>in</em> is counted.</p>
+    </div>
+  </div>
+
+  <div class="panel" id="run-panel" hidden>
+    <div class="panel-bar"><h2><span class="step-num">3</span>Results</h2>
+      <div class="toolbar">
+        <label class="fld" style="min-width:170px">Period
+          <select id="period"></select>
+        </label>
+        <button type="button" class="btn btn-primary" id="run">Check payments</button>
+        <button type="button" class="btn" id="export" disabled>Export CSV</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div id="results"><div class="empty">Choose a period and select <strong>Check payments</strong>.</div></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================ CSV ============================ */
+function parseCSV(text){
+  text = text.replace(/^﻿/, "");
+  var rows = [], row = [], field = "", i = 0, inQ = false, c;
+  while(i < text.length){
+    c = text.charAt(i);
+    if(inQ){
+      if(c === '"'){
+        if(text.charAt(i+1) === '"'){ field += '"'; i += 2; continue; }
+        inQ = false; i++; continue;
+      }
+      field += c; i++; continue;
+    }
+    if(c === '"'){ inQ = true; i++; continue; }
+    if(c === ","){ row.push(field); field = ""; i++; continue; }
+    if(c === "\r"){ i++; continue; }
+    if(c === "\n"){ row.push(field); rows.push(row); row = []; field = ""; i++; continue; }
+    field += c; i++;
+  }
+  if(field.length || row.length){ row.push(field); rows.push(row); }
+  return rows.filter(function(r){
+    return r.some(function(cell){ return String(cell).trim() !== ""; });
+  });
+}
+
+/* Bank exports often carry a few preamble lines above the real header, so take
+   the most common column count as the shape of the table and start there. */
+function tableFrom(rows){
+  if(!rows.length) return null;
+  var counts = {}, r;
+  for(r = 0; r < rows.length; r++) counts[rows[r].length] = (counts[rows[r].length] || 0) + 1;
+  var modal = 0, best = -1;
+  for(var k in counts){
+    if(counts[k] > best || (counts[k] === best && +k > modal)){ best = counts[k]; modal = +k; }
+  }
+  var hi = 0;
+  for(r = 0; r < rows.length; r++){ if(rows[r].length === modal){ hi = r; break; } }
+  return {
+    header: rows[hi].map(function(h){ return String(h).trim(); }),
+    body: rows.slice(hi + 1).filter(function(x){ return x.length === modal; })
+  };
+}
+
+function guessCol(header, patterns){
+  for(var p = 0; p < patterns.length; p++)
+    for(var i = 0; i < header.length; i++)
+      if(patterns[p].test(header[i])) return i;
+  return -1;
+}
+
+/* Which header names count as which column. Kept out of buildMaps so the tests
+   exercise the same list the page does, rather than a copy that can drift. */
+var COLS = {
+  member: {
+    name:   [/^name$/i, /full ?name/i, /member/i, /name/i],
+    plan:   [/plan/i, /membership/i, /type/i, /tier/i],
+    amount: [/monthly/i, /amount/i, /price/i, /fee/i, /cost/i],
+    ref:    [/reference/i, /^ref$/i, /payment ref/i]
+  },
+  bank: {
+    date:   [/^date$/i, /transaction date/i, /date/i],
+    desc:   [/memo/i, /description/i, /narrative/i, /details/i, /reference/i, /payee/i],
+    amount: [/paid ?in/i, /credit amount/i, /^credit$/i, /^amount$/i, /^value$/i, /amount/i]
+  }
+};
+function mapFor(header, group){
+  var out = {}, spec = COLS[group];
+  for(var k in spec) out[k] = guessCol(header, spec[k]);
+  return out;
+}
+
+/* ========================== parsing =========================== */
+var MONTHS = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+function parseDate(v){
+  v = String(v == null ? "" : v).trim();
+  if(!v) return null;
+  var m;
+  if((m = v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return new Date(+m[1], +m[2]-1, +m[3]);
+  if((m = v.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/))){
+    var y = +m[3]; if(y < 100) y += 2000;
+    return new Date(y, +m[2]-1, +m[1]);          /* UK: day first */
+  }
+  if((m = v.match(/^(\d{1,2})\s+([A-Za-z]{3})[A-Za-z]*\s+(\d{2,4})/))){
+    var y2 = +m[3]; if(y2 < 100) y2 += 2000;
+    var mo = MONTHS[m[2].toLowerCase()];
+    if(mo === undefined) return null;
+    return new Date(y2, mo, +m[1]);
+  }
+  var d = new Date(v);
+  return isNaN(d.getTime()) ? null : d;
+}
+function parseAmount(v){
+  if(v == null) return NaN;
+  var s = String(v).trim().replace(/[£$,\s]/g, "");
+  if(!s) return NaN;
+  var neg = /^\(.*\)$/.test(s);
+  s = s.replace(/[()]/g, "");
+  var n = parseFloat(s);
+  if(!isFinite(n)) return NaN;
+  return neg ? -n : n;
+}
+function norm(s){ return String(s == null ? "" : s).toUpperCase().replace(/[^A-Z0-9]/g, ""); }
+/* norm() throws away the separators, which is what lets INF-PEAK-SMITH-5020 on
+   a statement match INF/PEAK/SMITH/5020 in a member list. The cost is that it
+   also throws away the word edges, so a short reference can match inside a
+   longer word. normEdges keeps a note of which normalised characters sat at the
+   start and end of a word in the original text. */
+function normEdges(s){
+  s = String(s == null ? "" : s).toUpperCase();
+  var n = "", start = [], end = [], i, c, prevAl = false, nextAl;
+  for(i = 0; i < s.length; i++){
+    c = s.charAt(i);
+    if(!/[A-Z0-9]/.test(c)){ prevAl = false; continue; }
+    nextAl = i + 1 < s.length && /[A-Z0-9]/.test(s.charAt(i + 1));
+    start.push(!prevAl); end.push(!nextAl);
+    n += c; prevAl = true;
+  }
+  return { n:n, start:start, end:end };
+}
+
+/* True only where the reference lines up with word edges in the description.
+   Without the edge check a six character reference such as INF123 matches
+   inside WINF1234 and an unrelated payment gets credited to a member. */
+function refHit(pay, needle){
+  if(!needle || !pay.descE) return false;
+  var d = pay.descE, at = -1;
+  while((at = d.n.indexOf(needle, at + 1)) >= 0)
+    if(d.start[at] && d.end[at + needle.length - 1]) return true;
+  return false;
+}
+var NOISE = {STANDING:1,ORDER:1,SO:1,BGC:1,CREDIT:1,TFR:1,TRANSFER:1,PAYMENT:1,PAYMENTS:1,
+  FT:1,DD:1,BAC:1,BACS:1,FROM:1,REF:1,REFERENCE:1,GYM:1,INFINITY:1,FITNESS:1,MEMBERSHIP:1,
+  MONTHLY:1,SUB:1,SUBS:1,MR:1,MRS:1,MS:1,MISS:1,DR:1,THE:1,AND:1,LTD:1};
+function tokens(s){
+  return String(s == null ? "" : s).toUpperCase().replace(/[^A-Z]/g, " ")
+    .split(/\s+/).filter(function(t){ return t.length >= 1 && !NOISE[t]; });
+}
+function lev(a, b){
+  if(a === b) return 0;
+  var m = a.length, n = b.length;
+  if(!m) return n;
+  if(!n) return m;
+  if(Math.abs(m - n) > 2) return 9;
+  var prev = [], cur = [], i, j;
+  for(j = 0; j <= n; j++) prev[j] = j;
+  for(i = 1; i <= m; i++){
+    cur[0] = i;
+    for(j = 1; j <= n; j++){
+      cur[j] = Math.min(prev[j] + 1, cur[j-1] + 1, prev[j-1] + (a.charAt(i-1) === b.charAt(j-1) ? 0 : 1));
+    }
+    prev = cur.slice();
+  }
+  return prev[n];
+}
+function money(n){ return "£" + (isFinite(n) ? n.toFixed(2) : "?"); }
+function ukDate(d){
+  if(!d) return "";
+  var p = function(x){ return (x < 10 ? "0" : "") + x; };
+  return p(d.getDate()) + "/" + p(d.getMonth()+1) + "/" + d.getFullYear();
+}
+
+/* ========================= matching ========================== */
+var THRESHOLD = 38;
+var AMBIGUOUS = 70;   /* below this, a tie between two members is not called */
+function scorePair(mem, pay){
+  if(mem.refN && refHit(pay, mem.refN)) return 100;
+  if(mem.idKey && refHit(pay, mem.idKey)) return 90;
+  var t = pay.descT;
+  var hasSur = mem.surname.length >= 3 && t.indexOf(mem.surname) >= 0;
+  var hasFirst = mem.first.length >= 2 && t.indexOf(mem.first) >= 0;
+  if(hasSur && hasFirst) return 70;
+  if(hasSur && mem.first && t.indexOf(mem.first.charAt(0)) >= 0) return 58;
+  var hits = 0;
+  for(var i = 0; i < mem.nameT.length; i++)
+    if(mem.nameT[i].length >= 3 && t.indexOf(mem.nameT[i]) >= 0) hits++;
+  if(hits >= 2) return 62;
+  if(hasSur) return 50;
+  if(mem.surname.length >= 5){
+    for(var j = 0; j < t.length; j++)
+      if(t[j].length >= 4 && lev(t[j], mem.surname) <= 1) return 38;
+  }
+  return 0;
+}
+
+function reconcile(members, payments){
+  var pairs = [], mi, pi, s;
+  for(mi = 0; mi < members.length; mi++)
+    for(pi = 0; pi < payments.length; pi++){
+      s = scorePair(members[mi], payments[pi]);
+      if(s >= THRESHOLD) pairs.push({ mi:mi, pi:pi, s:s });
+    }
+  /* Highest confidence wins and each payment is spent only once, so two
+     members with the same surname cannot both claim the same payment. */
+  pairs.sort(function(a, b){ return b.s - a.s || a.mi - b.mi || a.pi - b.pi; });
+
+  /* Two members matching one payment equally well, on nothing stronger than a
+     shared surname, is a coin toss. Picking one names the wrong person to
+     chase, which is the failure this whole tool exists to avoid, so leave the
+     payment unmatched and let the owner look at it. At 70 and above the match
+     is forename plus surname, or a reference, which is strong enough to call. */
+  var top = {};
+  pairs.forEach(function(pr){
+    var b = top[pr.pi];
+    if(!b || pr.s > b.s) top[pr.pi] = { s:pr.s, n:1 };
+    else if(pr.s === b.s) b.n++;
+  });
+  var ambiguous = {};
+  Object.keys(top).forEach(function(pi){
+    if(top[pi].n > 1 && top[pi].s < AMBIGUOUS) ambiguous[pi] = true;
+  });
+  pairs = pairs.filter(function(pr){ return !ambiguous[pr.pi]; });
+
+  var mTaken = {}, pTaken = {};
+  pairs.forEach(function(pr){
+    if(mTaken.hasOwnProperty(pr.mi) || pTaken.hasOwnProperty(pr.pi)) return;
+    mTaken[pr.mi] = pr; pTaken[pr.pi] = pr;
+  });
+
+  var paid = [], wrong = [], missing = [], orphan = [];
+  members.forEach(function(m, i){
+    var pr = mTaken[i];
+    if(!pr){ missing.push({ member:m }); return; }
+    var p = payments[pr.pi];
+    var row = { member:m, pay:p, confidence:pr.s, diff:+(p.amount - m.amount).toFixed(2) };
+    if(Math.abs(row.diff) < 0.005) paid.push(row); else wrong.push(row);
+  });
+  payments.forEach(function(p, i){
+    if(pTaken.hasOwnProperty(i)) return;
+    if(ambiguous[i]){ orphan.push({ pay:p, guess:null, ambiguous:true }); return; }
+    var bestS = 0, bestM = null;
+    members.forEach(function(m){
+      var sc = scorePair(m, p);
+      if(sc > bestS){ bestS = sc; bestM = m; }
+    });
+    orphan.push({ pay:p, guess: bestS >= THRESHOLD ? bestM : null });
+  });
+  return { paid:paid, wrong:wrong, missing:missing, orphan:orphan };
+}
+
+/* Which month a payment belongs to. Lifted out of the Check payments handler
+   so the period filter can be tested without a DOM. `key` is "YYYY-M" as built
+   by buildPeriods, or "all". */
+function inPeriod(pay, key){
+  if(!key || key === "all") return true;
+  var parts = String(key).split("-");
+  return !!pay.date && pay.date.getFullYear() === +parts[0]
+      && pay.date.getMonth() === +parts[1] - 1;
+}
+
+/* =========================== state =========================== */
+var S = { members:null, bank:null, mapM:{}, mapB:{}, result:null, periods:[] };
+var FILTER = "all";
+
+function $(id){ return document.getElementById(id); }
+function el(tag, cls, txt){
+  var e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(txt != null) e.textContent = txt;
+  return e;
+}
+function showErr(msg){
+  var box = $("load-err");
+  box.textContent = "";
+  if(msg) box.appendChild(el("div", "err", msg));
+}
+
+/* ========================= file input ========================= */
+function wireDrop(dropId, inputId, onLoad){
+  var drop = $(dropId), input = $(inputId);
+  function read(file){
+    var fr = new FileReader();
+    fr.onerror = function(){ showErr("Could not read " + file.name + "."); };
+    fr.onload = function(){
+      try{
+        var tbl = tableFrom(parseCSV(String(fr.result)));
+        if(!tbl || !tbl.header.length || !tbl.body.length){
+          showErr(file.name + " has no readable rows. Export it again as CSV and try once more.");
+          return;
+        }
+        showErr("");
+        onLoad(tbl, file.name, drop);
+      }catch(err){
+        showErr("Could not understand " + file.name + ": " + err.message);
+      }
+    };
+    fr.readAsText(file);
+  }
+  input.addEventListener("change", function(){
+    if(input.files && input.files[0]) read(input.files[0]);
+  });
+  ["dragenter","dragover"].forEach(function(ev){
+    drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add("over"); });
+  });
+  ["dragleave","drop"].forEach(function(ev){
+    drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove("over"); });
+  });
+  drop.addEventListener("drop", function(e){
+    if(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) read(e.dataTransfer.files[0]);
+  });
+}
+
+function markLoaded(drop, lblId, hintId, name, rowCount){
+  drop.classList.add("loaded");
+  $(lblId).textContent = name;
+  $(hintId).textContent = rowCount + " row" + (rowCount === 1 ? "" : "s") + " read · click to replace";
+}
+
+function selectFor(header, chosen, onChange, allowNone){
+  var sel = document.createElement("select");
+  if(allowNone){
+    var o = document.createElement("option");
+    o.value = "-1"; o.textContent = "(not in my file)";
+    sel.appendChild(o);
+  }
+  header.forEach(function(h, i){
+    var opt = document.createElement("option");
+    opt.value = String(i);
+    opt.textContent = h || ("Column " + (i + 1));
+    sel.appendChild(opt);
+  });
+  sel.value = String(chosen);
+  sel.addEventListener("change", function(){ onChange(parseInt(sel.value, 10)); });
+  return sel;
+}
+function fieldRow(container, labelText, header, chosen, onChange, allowNone){
+  var lab = el("label", "fld", labelText);
+  lab.appendChild(selectFor(header, chosen, onChange, allowNone));
+  container.appendChild(lab);
+}
+
+function buildMaps(){
+  var mp = $("map-panel");
+  if(!S.members || !S.bank){ mp.hidden = true; return; }
+  mp.hidden = false;
+
+  var mh = S.members.header, gm = mapFor(mh, "member");
+  if(S.mapM.name   == null) S.mapM.name   = gm.name;
+  if(S.mapM.plan   == null) S.mapM.plan   = gm.plan;
+  if(S.mapM.amount == null) S.mapM.amount = gm.amount;
+  if(S.mapM.ref    == null) S.mapM.ref    = gm.ref;
+
+  var bh = S.bank.header, gb = mapFor(bh, "bank");
+  if(S.mapB.date   == null) S.mapB.date   = gb.date;
+  if(S.mapB.desc   == null) S.mapB.desc   = gb.desc;
+  if(S.mapB.amount == null) S.mapB.amount = gb.amount;
+
+  var cm = $("map-members"); cm.textContent = "";
+  fieldRow(cm, "Member name",      mh, S.mapM.name,   function(v){ S.mapM.name = v; },   false);
+  fieldRow(cm, "Plan",             mh, S.mapM.plan,   function(v){ S.mapM.plan = v; },   true);
+  fieldRow(cm, "Monthly amount",   mh, S.mapM.amount, function(v){ S.mapM.amount = v; }, false);
+  fieldRow(cm, "Payment reference",mh, S.mapM.ref,    function(v){ S.mapM.ref = v; },    true);
+
+  var cb = $("map-bank"); cb.textContent = "";
+  fieldRow(cb, "Date",           bh, S.mapB.date,   function(v){ S.mapB.date = v; buildPeriods(); }, false);
+  fieldRow(cb, "Description",    bh, S.mapB.desc,   function(v){ S.mapB.desc = v; },   false);
+  fieldRow(cb, "Amount paid in", bh, S.mapB.amount, function(v){ S.mapB.amount = v; }, false);
+
+  $("run-panel").hidden = false;
+  buildPeriods();
+}
+
+function cell(row, i){ return i >= 0 && i < row.length ? String(row[i]).trim() : ""; }
+
+function readMembers(){
+  var out = [];
+  S.members.body.forEach(function(row){
+    var name = cell(row, S.mapM.name);
+    if(!name) return;
+    var nameT = tokens(name);
+    var ref = cell(row, S.mapM.ref);
+    var refN = norm(ref);
+    /* Keep only SURNAME + digits from INF-PLAN-SURNAME-1234, so a member who
+       switches plan still reconciles against their existing standing order. */
+    var idKey = "";
+    var parts = ref.toUpperCase().split(/[^A-Z0-9]+/).filter(Boolean);
+    if(parts.length >= 2 && /^\d{4}$/.test(parts[parts.length - 1])){
+      idKey = parts[parts.length - 2] + parts[parts.length - 1];
+    }
+    out.push({
+      name: name,
+      plan: cell(row, S.mapM.plan),
+      amount: parseAmount(cell(row, S.mapM.amount)),
+      ref: ref,
+      refN: refN.length >= 6 ? refN : "",
+      idKey: idKey,
+      nameT: nameT,
+      first: nameT.length ? nameT[0] : "",
+      surname: nameT.length ? nameT[nameT.length - 1] : ""
+    });
+  });
+  return out;
+}
+
+function readPayments(){
+  var out = [];
+  S.bank.body.forEach(function(row){
+    var amount = parseAmount(cell(row, S.mapB.amount));
+    if(!isFinite(amount) || amount <= 0) return;      /* money in only */
+    var desc = cell(row, S.mapB.desc);
+    out.push({
+      date: parseDate(cell(row, S.mapB.date)),
+      desc: desc,
+      descN: norm(desc),
+      descE: normEdges(desc),
+      descT: tokens(desc),
+      amount: amount
+    });
+  });
+  return out;
+}
+
+function buildPeriods(){
+  var sel = $("period");
+  var keys = {};
+  readPayments().forEach(function(p){
+    if(p.date) keys[p.date.getFullYear() + "-" + (p.date.getMonth() + 1)] = true;
+  });
+  S.periods = Object.keys(keys).sort(function(a, b){
+    var A = a.split("-"), B = b.split("-");
+    return (+B[0] - +A[0]) || (+B[1] - +A[1]);
+  });
+  sel.textContent = "";
+  S.periods.forEach(function(key){
+    var parts = key.split("-");
+    var d = new Date(+parts[0], +parts[1] - 1, 1);
+    var o = document.createElement("option");
+    o.value = key;
+    o.textContent = d.toLocaleDateString("en-GB", { month:"long", year:"numeric" });
+    sel.appendChild(o);
+  });
+  var all = document.createElement("option");
+  all.value = "all"; all.textContent = "All dates in the file";
+  sel.appendChild(all);
+  if(!S.periods.length) sel.value = "all";
+}
+
+/* ========================== rendering ========================= */
+function render(){
+  var box = $("results");
+  box.textContent = "";
+  var R = S.result;
+  if(!R){ box.appendChild(el("div", "empty", "Choose a period and select Check payments.")); return; }
+
+  var sum = function(list, pick){
+    return list.reduce(function(a, x){ var v = pick(x); return a + (isFinite(v) ? v : 0); }, 0);
+  };
+  var defs = [
+    { key:"paid",    label:"Paid",              n:R.paid.length,    money:sum(R.paid,    function(x){ return x.pay.amount; }) },
+    { key:"missing", label:"Not seen",          n:R.missing.length, money:sum(R.missing, function(x){ return x.member.amount; }) },
+    { key:"wrong",   label:"Wrong amount",      n:R.wrong.length,   money:sum(R.wrong,   function(x){ return x.diff; }) },
+    { key:"orphan",  label:"Unmatched payment", n:R.orphan.length,  money:sum(R.orphan,  function(x){ return x.pay.amount; }) }
+  ];
+  var sub = { paid:"members paid the right amount", missing:"expected, nothing received",
+              wrong:"paid, but not the plan price", orphan:"money in, no member matched" };
+  var moneyLabel = { paid:"received", missing:"shortfall", wrong:"difference", orphan:"received" };
+
+  var grid = el("div", "buckets");
+  defs.forEach(function(d){
+    var b = el("button", "bucket " + d.key);
+    b.type = "button";
+    b.setAttribute("aria-pressed", FILTER === d.key ? "true" : "false");
+    b.appendChild(el("div", "n", String(d.n)));
+    b.appendChild(el("div", "l", d.label + " · " + sub[d.key]));
+    b.appendChild(el("div", "money", moneyLabel[d.key] + " " + money(d.money)));
+    b.addEventListener("click", function(){ FILTER = (FILTER === d.key) ? "all" : d.key; render(); });
+    grid.appendChild(b);
+  });
+  box.appendChild(grid);
+
+  var rows = [];
+  if(FILTER === "all" || FILTER === "missing")
+    R.missing.forEach(function(x){
+      rows.push(["missing", "Not seen", x.member.name, x.member.plan, money(x.member.amount), "", "", ""]);
+    });
+  if(FILTER === "all" || FILTER === "wrong")
+    R.wrong.forEach(function(x){
+      rows.push(["wrong", "Wrong amount", x.member.name, x.member.plan, money(x.member.amount),
+        money(x.pay.amount), ukDate(x.pay.date),
+        (x.diff > 0 ? "Overpaid by " : "Short by ") + money(Math.abs(x.diff)) + " · " + x.pay.desc]);
+    });
+  if(FILTER === "all" || FILTER === "orphan")
+    R.orphan.forEach(function(x){
+      rows.push(["orphan", "Unmatched", x.ambiguous ? "Two members match equally, check this one"
+        : x.guess ? "Looks like " + x.guess.name : "Not matched", "", "",
+        money(x.pay.amount), ukDate(x.pay.date), x.pay.desc]);
+    });
+  if(FILTER === "paid")
+    R.paid.forEach(function(x){
+      rows.push(["paid", "Paid", x.member.name, x.member.plan, money(x.member.amount),
+        money(x.pay.amount), ukDate(x.pay.date), x.pay.desc]);
+    });
+
+  if(!rows.length){
+    box.appendChild(el("div", "empty", FILTER === "all"
+      ? "Nothing to look at - every member paid the right amount and every payment matched."
+      : "Nothing in this group."));
+    return;
+  }
+
+  var scroll = el("div", "tbl-scroll");
+  var table = document.createElement("table");
+  var thead = document.createElement("thead"), htr = document.createElement("tr");
+  ["", "Member", "Plan", "Expected", "Received", "Date", "Bank description"].forEach(function(h, i){
+    htr.appendChild(el("th", (i === 3 || i === 4) ? "mono" : null, h));
+  });
+  thead.appendChild(htr);
+  table.appendChild(thead);
+  var tb = document.createElement("tbody");
+  rows.forEach(function(r){
+    var tr = document.createElement("tr");
+    var tdc = el("td", "chip-cell");
+    tdc.appendChild(el("span", "chip " + r[0], r[1]));
+    tr.appendChild(tdc);
+    var cells = [
+      ["Member", null, r[2]], ["Plan", "muted", r[3]],
+      ["Expected", "mono", r[4]], ["Received", "mono", r[5]],
+      ["Date", "mono muted", r[6]], ["Detail", "wide muted", r[7]]
+    ];
+    cells.forEach(function(c){
+      var td = el("td", c[1], c[2]);
+      td.setAttribute("data-label", c[0]);
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  table.appendChild(tb);
+  scroll.appendChild(table);
+  box.appendChild(scroll);
+
+  box.appendChild(el("p", "note", "Matching uses the payment reference first, then the name on the payment. "
+    + "Always sanity-check anything under Unmatched before chasing a member."));
+}
+
+/* ========================== download ========================= */
+function download(filename, text){
+  var blob = new Blob([text], { type:"text/csv;charset=utf-8" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+function csvCell(v){
+  var s = String(v == null ? "" : v);
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+function csvFrom(rows){
+  return rows.map(function(r){ return r.map(csvCell).join(","); }).join("\r\n");
+}
+
+/* ======================== PDF reading ======================== */
+/* pdf.js is vendored in ./vendor so this page keeps working with no network.
+   It is only fetched when someone actually opens a PDF. */
+var pdfLib = null;
+function loadPdfLib(){
+  if(pdfLib) return pdfLib;
+  pdfLib = new Promise(function(resolve, reject){
+    var sc = document.createElement("script");
+    sc.src = "vendor/pdf.min.js";
+    sc.onload = function(){
+      if(!window.pdfjsLib){ reject(new Error("pdf.js loaded but did not register.")); return; }
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = "vendor/pdf.worker.min.js";
+      resolve(window.pdfjsLib);
+    };
+    sc.onerror = function(){
+      reject(new Error("Could not load vendor/pdf.min.js. The vendor folder needs to sit next to this page."));
+    };
+    document.head.appendChild(sc);
+  });
+  return pdfLib;
+}
+
+/* Rebuild visual lines from the PDF text layer: group runs that share a
+   baseline, then read them left to right. The result is fed to the same
+   parser the paste box uses, so only this step is new. */
+function pdfToLines(items){
+  var buckets = [];
+  items.forEach(function(it){
+    if(!it.str || !it.str.trim()) return;
+    var y = it.transform[5], x = it.transform[4], hit = null;
+    for(var i = 0; i < buckets.length; i++){
+      if(Math.abs(buckets[i].y - y) <= 3){ hit = buckets[i]; break; }
+    }
+    if(!hit){ hit = { y:y, parts:[] }; buckets.push(hit); }
+    hit.parts.push({ x:x, s:it.str });
+  });
+  return buckets
+    .sort(function(a, b){ return b.y - a.y; })
+    .map(function(b){
+      return b.parts.sort(function(p, q){ return p.x - q.x; })
+        .map(function(p){ return p.s; }).join(" ").replace(/\s+/g, " ").trim();
+    })
+    .filter(function(l){ return l; });
+}
+
+function pdfToText(file){
+  return loadPdfLib().then(function(lib){
+    return file.arrayBuffer().then(function(buf){
+      return lib.getDocument({ data: new Uint8Array(buf) }).promise;
+    });
+  }).then(function(doc){
+    var pages = [], i;
+    for(i = 1; i <= doc.numPages; i++) pages.push(i);
+    return pages.reduce(function(chain, n){
+      return chain.then(function(acc){
+        return doc.getPage(n)
+          .then(function(pg){ return pg.getTextContent(); })
+          .then(function(tc){ return acc.concat(pdfToLines(tc.items)); });
+      });
+    }, Promise.resolve([])).then(function(lines){
+      return { text: lines.join(String.fromCharCode(10)), pages: doc.numPages };
+    });
+  });
+}
+
+/* ===================== pasted statements ===================== */
+/* A row copied out of a PDF statement usually carries two numbers, the amount
+   and the running balance, with nothing to say which is which or whether the
+   money went in or out. The balance moving up or down between rows is the only
+   honest signal, so that is what decides direction. */
+
+var DATE_AT_START = /^\s*(\d{1,2}[\/\-.]\d{1,2}[\/\-.]\d{2,4}|\d{4}-\d{1,2}-\d{1,2}|\d{1,2}\s+[A-Za-z]{3,9}\.?(?:\s+\d{2,4})?)\s+/;
+/* two decimal places required, so a reference like INF-PEAK-SMITH-5020 is not
+   mistaken for an amount */
+var MONEY = /-?\u00a3?\s?\d{1,3}(?:,\d{3})*\.\d{2}|-?\u00a3?\s?\d+\.\d{2}/g;
+
+function parsePasted(text, mode){
+  var lines = String(text || "").split(/\r?\n/);
+  var raw = [], pending = null, skipped = 0;
+
+  function amountsIn(str){
+    var out = [], m, first = -1;
+    MONEY.lastIndex = 0;
+    while((m = MONEY.exec(str)) !== null){
+      if(first < 0) first = m.index;
+      out.push({ v: parseFloat(m[0].replace(/[\u00a3,\s]/g, "")), raw: m[0] });
+    }
+    return { nums: out, firstAt: first };
+  }
+
+  /* A row is only emitted once the next date arrives, so an amount sitting on a
+     wrapped continuation line still gets attached to the row it belongs to.
+     Dropping a transaction silently would be the worst thing this could do. */
+  function flush(){
+    if(!pending) return;
+    if(!pending.nums.length){ skipped++; pending = null; return; }
+    var n = pending.nums;
+    raw.push({
+      date: pending.date,
+      desc: pending.desc,
+      amount: Math.abs(n[0].v),
+      balance: n.length >= 2 ? n[n.length - 1].v : null,
+      negative: /^-/.test(n[0].raw)
+    });
+    pending = null;
+  }
+
+  lines.forEach(function(line){
+    if(!line.trim()) return;
+    var dm = line.match(DATE_AT_START), rest, a, textPart;
+    if(dm){
+      flush();
+      rest = line.slice(dm[0].length);
+      a = amountsIn(rest);
+      pending = {
+        date: parseDate(dm[1]),
+        desc: (a.firstAt >= 0 ? rest.slice(0, a.firstAt) : rest).replace(/\s+/g, " ").trim(),
+        nums: a.nums
+      };
+    } else if(pending){
+      a = amountsIn(line);
+      textPart = (a.firstAt >= 0 ? line.slice(0, a.firstAt) : line).replace(/\s+/g, " ").trim();
+      if(textPart) pending.desc = (pending.desc + " " + textPart).trim();
+      pending.nums = pending.nums.concat(a.nums);
+    }
+  });
+  flush();
+
+  /* the balance moving up or down is the only reliable signal of direction */
+  var prevBal = null, inCount = 0, outCount = 0;
+  raw.forEach(function(r){
+    var isIn = true;
+    if(mode === "all") isIn = true;
+    else if(r.balance !== null && prevBal !== null) isIn = (r.balance - prevBal) >= 0;
+    else if(r.negative) isIn = false;
+    r.signed = isIn ? r.amount : -r.amount;
+    if(isIn) inCount++; else outCount++;
+    if(r.balance !== null) prevBal = r.balance;
+  });
+
+  return { rows: raw, inCount: inCount, outCount: outCount, skipped: skipped };
+}
+
+function showPastePreview(parsed){
+  var box = $("paste-preview");
+  box.textContent = "";
+  if(!parsed.rows.length){
+    box.appendChild(el("div", "err", "No transactions were recognised. Each row needs a date and an amount with pence, like 03 Sep 26 SMITH A 25.00"));
+    return false;
+  }
+  var head = el("div", "preview-head");
+  head.appendChild(el("strong", null, parsed.rows.length + " transaction" + (parsed.rows.length === 1 ? "" : "s") + " found"));
+  head.appendChild(document.createTextNode(
+    " \u00b7 " + parsed.inCount + " money in, " + parsed.outCount + " money out. Check a few rows below before carrying on."));
+  box.appendChild(head);
+  if(parsed.skipped){
+    box.appendChild(el("div", "err", parsed.skipped + " row" + (parsed.skipped === 1 ? " was" : "s were")
+      + " skipped because no amount could be read. Check nothing is missing before relying on this."));
+  }
+
+  var scroll = el("div", "tbl-scroll");
+  var t = document.createElement("table");
+  var thead = document.createElement("thead"), htr = document.createElement("tr");
+  ["Date", "Description", "Amount"].forEach(function(h){ htr.appendChild(el("th", null, h)); });
+  thead.appendChild(htr); t.appendChild(thead);
+  var tb = document.createElement("tbody");
+  parsed.rows.slice(0, 8).forEach(function(r){
+    var tr = document.createElement("tr");
+    tr.appendChild(el("td", "mono muted", ukDate(r.date) || "?"));
+    tr.appendChild(el("td", "wide", r.desc));
+    tr.appendChild(el("td", "mono", (r.signed < 0 ? "-" : "") + money(Math.abs(r.signed))));
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb); scroll.appendChild(t); box.appendChild(scroll);
+  if(parsed.rows.length > 8)
+    box.appendChild(el("p", "note", "Showing the first 8 of " + parsed.rows.length + "."));
+  return true;
+}
+
+/* ============================ wire =========================== */
+wireDrop("drop-members", "file-members", function(tbl, name){
+  S.members = tbl; S.mapM = {};
+  markLoaded($("drop-members"), "lbl-members", "hint-members", name, tbl.body.length);
+  buildMaps();
+});
+wireDrop("drop-bank", "file-bank", function(tbl, name){
+  S.bank = tbl; S.mapB = {};
+  markLoaded($("drop-bank"), "lbl-bank", "hint-bank", name, tbl.body.length);
+  buildMaps();
+});
+
+$("tpl").addEventListener("click", function(){
+  download("member-list-template.csv", csvFrom([
+    ["Name", "Plan", "Monthly amount", "Reference"],
+    ["Alex Smith", "Peak", "25.00", "INF-PEAK-SMITH-5020"],
+    ["Jo Brown", "Student", "20.00", ""],
+    ["Pat Taylor", "Off-peak", "22.50", ""]
+  ]));
+});
+
+$("run").addEventListener("click", function(){
+  var members = readMembers();
+  var pays = readPayments();
+  var key = $("period").value;
+  pays = pays.filter(function(p){ return inPeriod(p, key); });
+  if(!members.length){ showErr("No members were read. Check the Member name column."); return; }
+  showErr("");
+  S.result = reconcile(members, pays);
+  FILTER = "all";
+  $("export").disabled = false;
+  render();
+});
+
+$("export").addEventListener("click", function(){
+  var R = S.result;
+  if(!R) return;
+  var rows = [["Status", "Member", "Plan", "Expected", "Received", "Date", "Bank description"]];
+  R.missing.forEach(function(x){ rows.push(["Not seen", x.member.name, x.member.plan, x.member.amount, "", "", ""]); });
+  R.wrong.forEach(function(x){ rows.push(["Wrong amount", x.member.name, x.member.plan, x.member.amount, x.pay.amount, ukDate(x.pay.date), x.pay.desc]); });
+  R.orphan.forEach(function(x){ rows.push(["Unmatched payment", x.ambiguous ? "Two members match equally, check this one" : x.guess ? "Looks like " + x.guess.name : "", "", "", x.pay.amount, ukDate(x.pay.date), x.pay.desc]); });
+  R.paid.forEach(function(x){ rows.push(["Paid", x.member.name, x.member.plan, x.member.amount, x.pay.amount, ukDate(x.pay.date), x.pay.desc]); });
+  var label = $("period").value === "all" ? "all-dates" : $("period").value;
+  download("membership-check-" + label + ".csv", csvFrom(rows));
+});
+
+
+/* statement input: CSV file, PDF, or pasted text */
+(function(){
+  var tabs = { csv: $("tab-csv"), pdf: $("tab-pdf"), paste: $("tab-paste") };
+  var panes = { csv: $("drop-bank"), pdf: $("drop-pdf"), paste: $("paste-pane") };
+
+  function mode(which){
+    Object.keys(tabs).forEach(function(k){
+      tabs[k].setAttribute("aria-selected", k === which ? "true" : "false");
+      panes[k].hidden = (k !== which);
+    });
+  }
+  Object.keys(tabs).forEach(function(k){
+    tabs[k].addEventListener("click", function(){ mode(k); });
+  });
+
+  /* shared by the paste box and the PDF reader */
+  function runParse(){
+    var parsed = parsePasted($("paste-box").value, $("paste-dir").value);
+    if(!showPastePreview(parsed)) return false;
+    showErr("");
+    /* hand it downstream in the shape a CSV would arrive in, so matching,
+       the period filter and the export all stay exactly as they were */
+    S.bank = {
+      header: ["Date", "Description", "Amount"],
+      body: parsed.rows.map(function(r){
+        return [r.date ? ukDate(r.date) : "", r.desc, r.signed.toFixed(2)];
+      })
+    };
+    S.mapB = { date:0, desc:1, amount:2 };
+    buildMaps();
+    return true;
+  }
+
+  $("paste-read").addEventListener("click", runParse);
+  $("paste-dir").addEventListener("change", function(){
+    if($("paste-box").value.trim()) runParse();
+  });
+
+  $("file-pdf").addEventListener("change", function(){
+    var f = this.files && this.files[0];
+    if(!f) return;
+    $("hint-pdf").textContent = "Reading " + f.name + "...";
+    showErr("");
+    pdfToText(f).then(function(res){
+      $("lbl-pdf").textContent = f.name;
+      $("hint-pdf").textContent = res.pages + " page" + (res.pages === 1 ? "" : "s")
+        + " read \u00b7 tap to choose a different file";
+      $("drop-pdf").classList.add("loaded");
+      if(!res.text.trim()){
+        showErr("No text could be read from that PDF. It may be a scan or a photo rather than a "
+          + "statement download, and there is no text in it to read.");
+        return;
+      }
+      /* Show the extracted text rather than hiding it. Statement layouts vary,
+         so the owner needs to be able to see and correct what was read. */
+      $("paste-box").value = res.text;
+      mode("paste");
+      runParse();
+    }).catch(function(err){
+      $("hint-pdf").textContent = "Choose the PDF you saved from the banking app";
+      showErr("Could not read that PDF: " + err.message);
+    });
+  });
+})();
+
+/* Test hook for tools/reconcile.test.mjs. `module` is undefined in a browser,
+   so this is inert there and the page stays a single self-contained file. */
+if(typeof module !== "undefined" && module.exports) module.exports = {
+  parseCSV: parseCSV, tableFrom: tableFrom, guessCol: guessCol, mapFor: mapFor,
+  parseDate: parseDate, parseAmount: parseAmount, norm: norm, tokens: tokens,
+  lev: lev, normEdges: normEdges, refHit: refHit, scorePair: scorePair, reconcile: reconcile, inPeriod: inPeriod,
+  readMembers: readMembers, readPayments: readPayments,
+  parsePasted: parsePasted, ukDate: ukDate, money: money,
+  THRESHOLD: THRESHOLD, S: S
+};
+})();
+</script>
+</body>
+</html>
