@@ -2,9 +2,12 @@
 """
 Assemble exactly what should go on the public server, into dist/.
 
-    python tools/build-dist.py
+    python tools/build-dist.py              the real site, into dist/
+    python tools/build-dist.py --preview    a test copy, into dist-preview/
 
-Then drag the dist folder into Cloudflare Pages.
+Then drag the folder into Cloudflare Pages. The two builds land in different
+folders so a test copy, which hides itself from search engines, cannot be
+handed over as the launch by mistake.
 
 The point of this is not convenience, it is to stop the wrong things going up.
 docs/ holds the meeting notes and the working arrangement, and shots/ and
@@ -24,6 +27,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
+DIST_PREVIEW = ROOT / "dist-preview"
 CONFIG = ROOT / "payee.local.json"
 
 # the URL index.html carries in the repo, swapped for the real one at build time
@@ -50,6 +54,15 @@ Disallow: /tools/
 
 Sitemap: %s/sitemap.xml
 """
+
+# A preview carries facts nobody has signed off yet. Getting that indexed under
+# the gym's name, then having it outrank the real site later, is a mess worth
+# one line of prevention.
+ROBOTS_PREVIEW = """User-agent: *
+Disallow: /
+"""
+
+NOINDEX_TAG = '<meta name="robots" content="noindex, nofollow">'
 
 SITEMAP = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -117,13 +130,17 @@ def fill_payee(html, payee):
 
 
 def main():
+    preview = "--preview" in sys.argv
+    out = DIST_PREVIEW if preview else DIST
     config = load_config()
     site_url = (config.get("siteUrl") or PLACEHOLDER_URL).rstrip("/")
+    if preview and config.get("previewUrl"):
+        site_url = config["previewUrl"].rstrip("/")
     payee = config.get("payee") or {}
 
-    if DIST.exists():
-        shutil.rmtree(DIST)
-    DIST.mkdir(parents=True)
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir(parents=True)
 
     missing = []
     copied = 0
@@ -133,7 +150,7 @@ def main():
         if not src.is_file():
             missing.append(rel)
             continue
-        dst = DIST / rel
+        dst = out / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
         copied += 1
@@ -143,22 +160,31 @@ def main():
         if not src.is_dir():
             missing.append(rel + "/")
             continue
-        dst = DIST / rel
+        dst = out / rel
         shutil.copytree(src, dst)
         copied += sum(1 for _ in dst.rglob("*") if _.is_file())
 
     # the built page, not the source, is where the real values belong
-    page = DIST / "index.html"
+    page = out / "index.html"
     url_hits = 0
     if page.is_file():
         html = page.read_text(encoding="utf-8")
         html = fill_payee(html, payee)
         url_hits = html.count(PLACEHOLDER_URL)
         html = html.replace(PLACEHOLDER_URL, site_url)
+        if preview and NOINDEX_TAG not in html:
+            # after the charset declaration, which browsers want to see first
+            anchor = '<meta charset="UTF-8">'
+            if anchor not in html:
+                sys.exit("STOP: could not find the charset meta to insert noindex after.")
+            html = html.replace(anchor, anchor + "\n" + NOINDEX_TAG, 1)
         page.write_text(html, encoding="utf-8")
 
-    (DIST / "robots.txt").write_text(ROBOTS % site_url, encoding="utf-8")
-    (DIST / "sitemap.xml").write_text(SITEMAP % site_url, encoding="utf-8")
+    if preview:
+        (out / "robots.txt").write_text(ROBOTS_PREVIEW, encoding="utf-8")
+    else:
+        (out / "robots.txt").write_text(ROBOTS % site_url, encoding="utf-8")
+        (out / "sitemap.xml").write_text(SITEMAP % site_url, encoding="utf-8")
 
     if missing:
         print("MISSING, not copied:")
@@ -167,12 +193,12 @@ def main():
         print()
 
     total = 0
-    print("dist/ contents:")
-    for f in sorted(DIST.rglob("*")):
+    print("%s/ contents:" % out.name)
+    for f in sorted(out.rglob("*")):
         if f.is_file():
             size = f.stat().st_size
             total += size
-            print("  %-42s %7.1f KB" % (f.relative_to(DIST).as_posix(), size / 1024))
+            print("  %-42s %7.1f KB" % (f.relative_to(out).as_posix(), size / 1024))
 
     print()
     print("%d files, %.1f MB total" % (copied + 1, total / (1024 * 1024)))
@@ -194,21 +220,25 @@ def main():
         if have:
             print("              (have %s)" % ", ".join(have))
 
-    if site_url == PLACEHOLDER_URL:
+    if preview:
+        print("Mode:         PREVIEW, in dist-preview/. noindex on the page, robots.txt")
+        print("              blocks everything, no sitemap. Not for the real launch:")
+        print("              that is dist/, from a build without --preview.")
+    elif site_url == PLACEHOLDER_URL:
         print()
         print("NOTE: still on the placeholder domain. The canonical URL and the social")
         print("      preview image will both be wrong once this is live on the real one.")
 
     # a public page that leaked the working notes would be genuinely bad, so check
-    leaked = [f.relative_to(DIST).as_posix() for f in DIST.rglob("*")
+    leaked = [f.relative_to(out).as_posix() for f in out.rglob("*")
               if f.is_file() and (
                   "for-the-owner" in f.name or "meeting-notes" in f.name
                   or "launch-plan" in f.name or "pre-redesign" in f.name
                   or f.name == "payee.local.json")]
     if leaked:
-        sys.exit("STOP: working documents ended up in dist/: %s" % ", ".join(leaked))
+        sys.exit("STOP: working documents ended up in %s/: %s" % (out.name, ", ".join(leaked)))
     print()
-    print("Checked: no working documents in dist/. Safe to upload.")
+    print("Checked: no working documents in %s/. Safe to upload." % out.name)
 
 
 if __name__ == "__main__":

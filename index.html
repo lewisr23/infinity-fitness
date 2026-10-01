@@ -719,7 +719,7 @@
         <div class="card reveal"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="1.5" y="9" width="2.5" height="6" rx="1"/><rect x="20" y="9" width="2.5" height="6" rx="1"/><rect x="5" y="6.5" width="4" height="11" rx="1.5"/><rect x="15" y="6.5" width="4" height="11" rx="1.5"/><rect x="9" y="10.5" width="6" height="3" rx="1" opacity=".45"/></svg><span class="tag">Strength</span><h3>Resistance &amp; conditioning</h3><p>Free weights, machines and conditioning work for building strength at your own pace.</p></div>
         <div class="card reveal"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.6 2"/><path d="M9.5 2.5h5M12 2.5V6" opacity=".45"/></svg><span class="tag">Group class</span><h3>Circuits</h3><p>Timed, full-body group sessions, friendly and scaled to suit everyone in the room.</p></div>
         <div class="card reveal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9z" fill="currentColor" opacity=".3"/><path d="M3 12.5h4l2-3.5 3 7 2-4.5 1.5 1h5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="tag">Cardio</span><h3>Cardio suite</h3><p>Open cardio floor for endurance work, on its own or alongside a class.</p></div>
-        <div class="card spotlight reveal"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="10" cy="7.5" r="3.5"/><path d="M3 20c0-4 3.1-6.5 7-6.5s7 2.5 7 6.5z"/><path d="M18.5 3.5l1 2.1 2.3.3-1.7 1.6.4 2.3-2-1.1-2 1.1.4-2.3-1.7-1.6 2.3-.3z" opacity=".5"/></svg><span class="tag">Personal training &middot; Limitless</span><h3>1:1 PT with Jack Ward</h3><p>One-to-one coaching built around your own goals and starting point.</p></div>
+        <div class="card spotlight reveal"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="10" cy="7.5" r="3.5"/><path d="M3 20c0-4 3.1-6.5 7-6.5s7 2.5 7 6.5z"/><path d="M18.5 3.5l1 2.1 2.3.3-1.7 1.6.4 2.3-2-1.1-2 1.1.4-2.3-1.7-1.6 2.3-.3z" opacity=".5"/></svg><span class="tag">Personal training</span><h3>One-to-one coaching</h3><p>Built around your goals and your starting point. Have a word at reception or give us a ring.</p></div>
       </div>
     </div>
   </section>
@@ -729,27 +729,65 @@
     <div class="wrap">
       <div class="section-head"><div><span class="eyebrow">Inside</span><h2>Have a look round</h2></div></div>
       <div class="gallery-grid">
+        <!-- The photos are 3:2 and the tiles are square, so each one is drawn at
+             1.5x the tile's width. sizes says so, or desktops pick the 480 and stretch it. -->
 
-        <button type="button" class="shot reveal" data-full="assets/gallery/rack-and-platform-720.jpg">
+        <button type="button" class="shot reveal" data-full="assets/gallery/gym-floor-960.jpg">
           <picture>
-            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 50vw, 33vw"
-                    srcset="assets/gallery/rack-and-platform-480.webp 480w, assets/gallery/rack-and-platform-720.webp 720w">
-            <img src="assets/gallery/rack-and-platform-720.jpg" width="720" height="960" loading="lazy" decoding="async"
-                 alt="Squat rack set over a wooden lifting platform, with an adjustable bench, weight plates and full-length mirrors.">
+            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 75vw, 50vw"
+                    srcset="assets/gallery/gym-floor-480.webp 480w, assets/gallery/gym-floor-960.webp 960w">
+            <img src="assets/gallery/gym-floor-960.jpg" width="960" height="640" loading="lazy" decoding="async"
+                 alt="The main gym floor, with resistance machines down one side, benches on rubber matting, racks of dumbbells and mirrors along the wall.">
           </picture>
         </button>
 
-        <button type="button" class="shot reveal" data-full="assets/gallery/main-floor-720.jpg">
+        <button type="button" class="shot reveal" data-full="assets/gallery/free-weights-960.jpg">
           <picture>
-            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 50vw, 33vw"
-                    srcset="assets/gallery/main-floor-480.webp 480w, assets/gallery/main-floor-720.webp 720w">
-            <img src="assets/gallery/main-floor-720.jpg" width="720" height="960" loading="lazy" decoding="async"
-                 alt="The main gym floor, lined with resistance machines, benches, an Olympic bar and dumbbells.">
+            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 75vw, 50vw"
+                    srcset="assets/gallery/free-weights-480.webp 480w, assets/gallery/free-weights-960.webp 960w">
+            <img src="assets/gallery/free-weights-960.jpg" width="960" height="640" loading="lazy" decoding="async"
+                 alt="Free weights and machines, with Olympic bars and plates, a leg extension, benches, a cable station and a dumbbell rack.">
+          </picture>
+        </button>
+
+        <button type="button" class="shot reveal" data-full="assets/gallery/lifting-platform-960.jpg">
+          <picture>
+            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 75vw, 50vw"
+                    srcset="assets/gallery/lifting-platform-480.webp 480w, assets/gallery/lifting-platform-960.webp 960w">
+            <img src="assets/gallery/lifting-platform-960.jpg" width="960" height="640" loading="lazy" decoding="async"
+                 alt="A lifting platform with a loaded barbell, beside a bench and a cable machine, in front of a wall of mirrors.">
+          </picture>
+        </button>
+
+        <button type="button" class="shot reveal" data-full="assets/gallery/cardio-suite-960.jpg">
+          <picture>
+            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 75vw, 50vw"
+                    srcset="assets/gallery/cardio-suite-480.webp 480w, assets/gallery/cardio-suite-960.webp 960w">
+            <img src="assets/gallery/cardio-suite-960.jpg" width="960" height="640" loading="lazy" decoding="async"
+                 alt="The cardio suite, with treadmills, a rowing machine and exercise bikes beside a red feature wall.">
+          </picture>
+        </button>
+
+        <button type="button" class="shot reveal" data-full="assets/gallery/cardio-room-960.jpg">
+          <picture>
+            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 75vw, 50vw"
+                    srcset="assets/gallery/cardio-room-480.webp 480w, assets/gallery/cardio-room-960.webp 960w">
+            <img src="assets/gallery/cardio-room-960.jpg" width="960" height="640" loading="lazy" decoding="async"
+                 alt="More of the cardio suite: rowing machines, exercise bikes, a stepper and a treadmill.">
+          </picture>
+        </button>
+
+        <button type="button" class="shot reveal" data-full="assets/gallery/studio-960.jpg">
+          <picture>
+            <source type="image/webp" sizes="(max-width:560px) 100vw, (max-width:860px) 75vw, 50vw"
+                    srcset="assets/gallery/studio-480.webp 480w, assets/gallery/studio-960.webp 960w">
+            <img src="assets/gallery/studio-960.jpg" width="960" height="640" loading="lazy" decoding="async"
+                 alt="The studio, with spin bikes, a punch bag and boxing dummy, plyo boxes, kettlebells and a mirrored wall.">
           </picture>
         </button>
 
       </div>
-      <p class="gallery-note">Photographs of the gym as it is now. More to follow.</p>
+      <p class="gallery-note">Photographs of the gym as it is now.</p>
     </div>
   </section>
 
@@ -1036,8 +1074,8 @@
        payer's bank checks this against the real account holder (Confirmation of
        Payee) and a wrong name triggers a mismatch warning mid-payment. */
     name:     "",
-    sortCode: "",
-    account:  ""
+    sortCode: "08-71-99",
+    account:  "78966031"
   };
 
   var picker = document.getElementById("plan-picker");
