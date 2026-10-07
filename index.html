@@ -412,23 +412,6 @@
   .tag.peak{ background:var(--accent-tint); color:var(--accent-text); }
   .pill{ display:inline-block; margin-right:8px; padding:2px 7px; border-radius:999px; vertical-align:1px; font-family:var(--font-mono); font-size:10.5px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; background:var(--accent-tint); color:var(--accent-text); }
 
-  /* ---------- pricing ---------- */
-  .price-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
-  @media (max-width:960px){ .price-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){ .price-grid{ grid-template-columns:1fr; } }
-  .price-card{
-    display:flex; flex-direction:column; gap:4px; padding:24px; background:var(--surface); border-radius:var(--r-l);
-    box-shadow:var(--highlight), var(--shadow-rest), 0 0 0 1px var(--hairline);
-    transition:transform .45s var(--ease-pop), box-shadow .3s var(--ease-soft);
-  }
-  .price-card:hover{ transform:translateY(-2px); box-shadow:var(--highlight), var(--shadow-lift), 0 0 0 1px var(--hairline-strong); }
-  .price-card h3{ font-size:15px; font-weight:600; letter-spacing:-0.01em; }
-  .price-card .price{ margin-top:4px; font-size:34px; font-weight:700; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
-  .price-card .price span{ font-size:14px; font-weight:500; letter-spacing:0; color:var(--ink-2); margin-left:2px; }
-  .price-card p{ margin-top:6px; font-size:13.5px; line-height:1.5; color:var(--ink-2); }
-  .price-card.highlight{ background:color-mix(in srgb, var(--accent) 5%, var(--surface)); }
-  .price-card .tag{ align-self:flex-start; margin-bottom:2px; }
-  .price-note{ margin-top:20px; font-size:12.5px; color:var(--ink-3); max-width:70ch; }
 
   .map-pane{ position:relative; border-top:1px solid var(--hairline); background:var(--ground); }
   .map-pane iframe{
@@ -549,26 +532,31 @@
   .step-head h3{ font-size:15px; font-weight:600; letter-spacing:-0.01em; }
   .step-note{ margin-top:10px; font-size:12.5px; line-height:1.5; color:var(--ink-3); }
 
-  .plan-picker{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-  @media (max-width:600px){ .plan-picker{ grid-template-columns:1fr; } }
+  .step-plan{ margin-bottom:28px; }
+  .anchor{ display:block; position:relative; top:-80px; visibility:hidden; }
+  .plan-picker{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  @media (max-width:960px){ .plan-picker{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .plan-picker{ grid-template-columns:1fr; } }
   .plan-opt{ position:relative; display:block; cursor:pointer; }
   .plan-opt input{ position:absolute; opacity:0; width:0; height:0; }
   .plan-box{
-    height:100%; padding:14px 16px; border-radius:var(--r-m); background:var(--surface-2);
-    box-shadow:0 0 0 1px var(--hairline);
+    display:flex; flex-direction:column; gap:2px;
+    height:100%; padding:20px; border-radius:var(--r-l); background:var(--surface);
+    box-shadow:var(--highlight), var(--shadow-rest), 0 0 0 1px var(--hairline);
     transition:box-shadow .2s var(--ease-soft), background .2s var(--ease-soft), transform .18s var(--ease-press);
   }
-  .plan-opt:hover .plan-box{ box-shadow:0 0 0 1px var(--hairline-strong); }
+  .plan-opt:hover .plan-box{ box-shadow:var(--highlight), var(--shadow-rest), 0 0 0 1px var(--hairline-strong); }
+  .plan-box .tag{ align-self:flex-start; margin-bottom:4px; }
   .plan-opt:active .plan-box{ transform:scale(.985); }
   .plan-opt input:checked + .plan-box{
     background:color-mix(in srgb, var(--accent) 7%, var(--surface));
     box-shadow:0 0 0 2px var(--accent);
   }
   .plan-opt input:focus-visible + .plan-box{ box-shadow:0 0 0 2px var(--accent), 0 0 0 5px color-mix(in srgb, var(--accent) 30%, transparent); }
-  .plan-name{ font-size:14px; font-weight:600; letter-spacing:-0.01em; }
-  .plan-cost{ margin-top:2px; font-size:22px; font-weight:700; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
+  .plan-name{ font-size:15px; font-weight:600; letter-spacing:-0.01em; }
+  .plan-cost{ margin-top:2px; font-size:30px; font-weight:700; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
   .plan-cost span{ font-size:12.5px; font-weight:500; letter-spacing:0; color:var(--ink-2); margin-left:2px; }
-  .plan-desc{ margin-top:5px; font-size:12.5px; line-height:1.45; color:var(--ink-2); }
+  .plan-desc{ margin-top:6px; font-size:13px; line-height:1.45; color:var(--ink-2); }
 
   .name-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media (max-width:600px){ .name-row{ grid-template-columns:1fr; } }
@@ -623,7 +611,7 @@
 
   @media print{
     header, footer, .hero, .glance, #train, #clinic, #reviews, #find-us,
-    .step-plan, .step-name, .join-aside, .copy-btn, .price-note, .window-foot, .section-head .eyebrow{ display:none !important; }
+    .step-plan, .step-name, .join-aside, .copy-btn, .window-foot, .section-head .eyebrow{ display:none !important; }
     .reveal{ opacity:1 !important; transform:none !important; }
     body{ background:#fff; color:#000; }
     section{ padding:0; }
@@ -647,8 +635,7 @@
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#clinic">Clinic</a></li>
       <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#join">Join</a></li>
+      <li><a href="#join">Membership</a></li>
       <li><a href="#find-us">Find us</a></li>
     </ul>
     <div class="navright">
@@ -828,40 +815,41 @@
     </div>
   </section>
 
-  <section id="pricing">
-    <div class="wrap">
-      <div class="section-head"><div><span class="eyebrow">Membership</span><h2>Pricing</h2></div></div>
-      <div class="price-grid">
-        <div class="price-card reveal" data-plan="student">
-          <h3>Student</h3>
-          <div class="price">&pound;20<span>/month</span></div>
-          <p>Valid student ID required at sign-up.</p>
-        </div>
-        <div class="price-card reveal" data-plan="offpeak">
-          <h3>Off-peak</h3>
-          <div class="price">&pound;22.50<span>/month</span></div>
-          <p>Weekday off-peak (6:30am&ndash;4pm) and weekends.</p>
-        </div>
-        <div class="price-card highlight reveal" data-plan="peak">
-          <span class="tag peak">Full access</span>
-          <h3>Peak</h3>
-          <div class="price">&pound;28<span>/month</span></div>
-          <p>Unlimited access, including weekday evenings.</p>
-        </div>
-        <div class="price-card reveal" data-plan="keyworker">
-          <span class="tag peak">Full access</span>
-          <h3>Key worker</h3>
-          <div class="price">&pound;25<span>/month</span></div>
-          <p>Full Peak access for key and essential workers. Ask at the desk if you are not sure you qualify.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
   <section id="join">
     <div class="wrap">
-      <div class="section-head"><div><span class="eyebrow">Join</span><h2>Set up your membership</h2></div></div>
+      <span id="pricing" class="anchor"></span>
+      <div class="section-head"><div><span class="eyebrow">Membership</span><h2>Pick a plan and join</h2></div></div>
+
+      <div class="step-plan reveal">
+        <div class="step-head"><span class="step-num">1</span><h3>Choose your membership</h3></div>
+        <!-- The prices here are the only copy on the page. The join script reads
+             them, so changing a price means changing it here and nowhere else. -->
+        <div class="plan-picker" id="plan-picker" role="radiogroup" aria-label="Membership">
+          <label class="plan-opt" data-plan="student"><input type="radio" name="join-plan" value="student"><span class="plan-box">
+            <span class="plan-name">Student</span>
+            <span class="plan-cost">&pound;20<span>/month</span></span>
+            <span class="plan-desc">Valid student ID required at sign-up.</span>
+          </span></label>
+          <label class="plan-opt" data-plan="offpeak"><input type="radio" name="join-plan" value="offpeak"><span class="plan-box">
+            <span class="plan-name">Off-peak</span>
+            <span class="plan-cost">&pound;22.50<span>/month</span></span>
+            <span class="plan-desc">Weekday off-peak (6:30am&ndash;4pm) and weekends.</span>
+          </span></label>
+          <label class="plan-opt" data-plan="peak"><input type="radio" name="join-plan" value="peak"><span class="plan-box">
+            <span class="tag peak">Full access</span>
+            <span class="plan-name">Peak</span>
+            <span class="plan-cost">&pound;28<span>/month</span></span>
+            <span class="plan-desc">Unlimited access, including weekday evenings.</span>
+          </span></label>
+          <label class="plan-opt" data-plan="keyworker"><input type="radio" name="join-plan" value="keyworker"><span class="plan-box">
+            <span class="tag peak">Full access</span>
+            <span class="plan-name">Key worker</span>
+            <span class="plan-cost">&pound;25<span>/month</span></span>
+            <span class="plan-desc">Full Peak access for key and essential workers. Ask at the desk if you are not sure you qualify.</span>
+          </span></label>
+        </div>
+      </div>
+
       <div class="join-grid">
 
         <div class="window reveal">
@@ -870,11 +858,6 @@
             <div class="window-meta">NO CARD DETAILS NEEDED</div>
           </div>
           <div class="window-body">
-
-            <div class="step step-plan">
-              <div class="step-head"><span class="step-num">1</span><h3>Choose your membership</h3></div>
-              <div class="plan-picker" id="plan-picker" role="radiogroup" aria-label="Membership"></div>
-            </div>
 
             <div class="step step-name">
               <div class="step-head"><span class="step-num">2</span><h3>Your name</h3></div>
@@ -1086,17 +1069,18 @@
     var CODES = { student:"STU", offpeak:"OFF", peak:"PEAK", keyworker:"KEY" };
     var text = function(el, fb){ return el && el.textContent ? el.textContent.trim() : (fb || ""); };
 
-    /* prices come from the pricing cards, so there is one source of truth */
+    /* prices come from the plan options themselves, so there is one source of truth */
     var plans = Array.prototype.map.call(
-      document.querySelectorAll("#pricing .price-card[data-plan]"),
-      function(card){
-        var id = card.getAttribute("data-plan");
+      picker.querySelectorAll(".plan-opt[data-plan]"),
+      function(opt){
+        var id = opt.getAttribute("data-plan");
         return {
           id: id,
+          input: opt.querySelector("input"),
           code: CODES[id] || id.toUpperCase().slice(0, 4),
-          name: text(card.querySelector("h3"), id),
-          amount: parseFloat(text(card.querySelector(".price")).replace(/[^0-9.]/g, "")),
-          desc: text(card.querySelector("p"))
+          name: text(opt.querySelector(".plan-name"), id),
+          amount: parseFloat(text(opt.querySelector(".plan-cost")).replace(/[^0-9.]/g, "")),
+          desc: text(opt.querySelector(".plan-desc"))
         };
       }
     ).filter(function(p){ return isFinite(p.amount) && p.amount > 0; });
@@ -1187,19 +1171,9 @@
     }
 
     plans.forEach(function(plan){
-      var label = document.createElement("label"); label.className = "plan-opt";
-      var input = document.createElement("input");
-      input.type = "radio"; input.name = "join-plan"; input.value = plan.id;
-      var box = document.createElement("div"); box.className = "plan-box";
-      var nm = document.createElement("div"); nm.className = "plan-name"; nm.textContent = plan.name;
-      var cost = document.createElement("div"); cost.className = "plan-cost";
-      cost.textContent = money(plan.amount).replace(/\.00$/, "");
-      var per = document.createElement("span"); per.textContent = "/month"; cost.appendChild(per);
-      var desc = document.createElement("div"); desc.className = "plan-desc"; desc.textContent = plan.desc;
-      box.appendChild(nm); box.appendChild(cost); box.appendChild(desc);
-      label.appendChild(input); label.appendChild(box);
-      input.addEventListener("change", function(){ chosen = plan; render(); });
-      picker.appendChild(label);
+      plan.input.addEventListener("change", function(){ chosen = plan; render(); });
+      /* a browser restoring the form on back/forward leaves one already ticked */
+      if(plan.input.checked) chosen = plan;
     });
 
     firstEl.addEventListener("input", render);
