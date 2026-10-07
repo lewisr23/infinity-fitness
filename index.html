@@ -413,8 +413,9 @@
   .pill{ display:inline-block; margin-right:8px; padding:2px 7px; border-radius:999px; vertical-align:1px; font-family:var(--font-mono); font-size:10.5px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; background:var(--accent-tint); color:var(--accent-text); }
 
   /* ---------- pricing ---------- */
-  .price-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-  @media (max-width:760px){ .price-grid{ grid-template-columns:1fr; } }
+  .price-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media (max-width:960px){ .price-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .price-grid{ grid-template-columns:1fr; } }
   .price-card{
     display:flex; flex-direction:column; gap:4px; padding:24px; background:var(--surface); border-radius:var(--r-l);
     box-shadow:var(--highlight), var(--shadow-rest), 0 0 0 1px var(--hairline);
@@ -844,8 +845,14 @@
         <div class="price-card highlight reveal" data-plan="peak">
           <span class="tag peak">Full access</span>
           <h3>Peak</h3>
-          <div class="price">&pound;25<span>/month</span></div>
+          <div class="price">&pound;28<span>/month</span></div>
           <p>Unlimited access, including weekday evenings.</p>
+        </div>
+        <div class="price-card reveal" data-plan="keyworker">
+          <span class="tag peak">Full access</span>
+          <h3>Key worker</h3>
+          <div class="price">&pound;25<span>/month</span></div>
+          <p>Full Peak access for key and essential workers. Ask at the desk if you are not sure you qualify.</p>
         </div>
       </div>
     </div>
@@ -1076,7 +1083,7 @@
   var picker = document.getElementById("plan-picker");
   var payCard = document.getElementById("pay-card");
   if(picker && payCard){
-    var CODES = { student:"STU", offpeak:"OFF", peak:"PEAK" };
+    var CODES = { student:"STU", offpeak:"OFF", peak:"PEAK", keyworker:"KEY" };
     var text = function(el, fb){ return el && el.textContent ? el.textContent.trim() : (fb || ""); };
 
     /* prices come from the pricing cards, so there is one source of truth */
