@@ -125,6 +125,13 @@ how joining works at the desk today. To build deliberately without them, pass
 
 `dist/` then uploads to any static host.
 
+For a test copy on a throwaway address, `--preview` writes `dist-preview/`
+instead. It uses `previewUrl` from `payee.local.json`, when there is one, in
+place of the real domain, adds `noindex` to the page and has `robots.txt` block everything, so
+facts nobody has signed off cannot get indexed under the gym's name. Keeping it
+in its own folder means the test copy cannot be handed over as the launch by
+mistake.
+
 ## Layout
 
 ```
